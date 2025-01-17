@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsers, addUser, claimPoints } from "../services/api.js";
 import "./UserList.css"
+import Confetti from 'react-confetti';
 
 const UserList = ({ onClaim }) => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [newUserName, setNewUserName] = useState("");
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     loadUsers();
@@ -25,6 +27,7 @@ const UserList = ({ onClaim }) => {
     try {
       await addUser(newUserName);
       setNewUserName("");
+      onClaim();
       loadUsers();
     } catch (error) {
       console.error("Error adding user:", error);
@@ -35,7 +38,9 @@ const UserList = ({ onClaim }) => {
     if (!selectedUser) return alert("Please select a user.");
     try {
       const { data } = await claimPoints(selectedUser);
-      alert(`Claimed ${data.pointsClaimed} points for ${data.user.name}`);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2500); // Stop confetti after 3 seconds
+      // alert(`Claimed ${data.pointsClaimed} points for ${data.user.name}`);
       onClaim(); // Trigger leaderboard update
     } catch (error) {
       console.error("Error claiming points:", error);
@@ -44,9 +49,9 @@ const UserList = ({ onClaim }) => {
 
   return (
     <div className="select_user">
-      <h2>Select User</h2>
-      <div>
-        <select onChange={(e) => setSelectedUser(e.target.value)} value={selectedUser}>
+      <h2 style={{}}>Select User</h2>
+      <div className="dropdown">
+        <select className="options" onChange={(e) => setSelectedUser(e.target.value)} value={selectedUser}>
           <option value="">Select User</option>
           {users.map((user) => (
             <option key={user._id} value={user._id}>
@@ -55,13 +60,15 @@ const UserList = ({ onClaim }) => {
           ))}
         </select>
         <button onClick={handleClaimPoints}>Claim Points</button>
+        {showConfetti && <Confetti />}
       </div>
-      <div>
+      <div className="add_user">
         <input
           type="text"
           placeholder="Add New User"
           value={newUserName}
           onChange={(e) => setNewUserName(e.target.value)}
+          id=""
         />
         <button onClick={handleAddUser}>Add User</button>
       </div>

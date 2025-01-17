@@ -1,4 +1,55 @@
 .select_user{
     display: flex;
-    margin: 0 30%;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    margin: 2% 10%;
+    padding: 0 2%;
+    height: 20vh;
+}
+.select_user h2{
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+    width: 20%;
+    height: 80%;
+}
+.select_user button{
+    height: 30%;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(85, 194, 237);
+}
+.dropdown{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 80%;
+    justify-content:space-around ;
+    padding: 10px
+}
+.dropdown select{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 3px;
+    height: 30%;
+}
+.add_user{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 80%;
+    justify-content:space-around ;
+    padding: 10px
+    
+}
+.add_user input{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    height: 30%;
+}
+.options{
+    height: 100%;
+    width: 100%;
 }

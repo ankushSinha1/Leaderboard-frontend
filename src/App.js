@@ -1,23 +1,22 @@
-import './App.css';
+import React, { useState } from "react";
+import UserList from "./components/UserList";
+import Leaderboard from "./components/Leaderboard";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [refresh, setRefresh] = useState(false);
+
+  const handleRefresh = () => {
+    setRefresh(!refresh); // Trigger refresh
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Leaderboard System</h1>
+      <UserList onClaim={handleRefresh} />
+      <Leaderboard key={refresh} />
     </div>
   );
-}
+};
 
 export default App;
